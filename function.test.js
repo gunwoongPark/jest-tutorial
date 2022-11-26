@@ -64,3 +64,21 @@ test("Mike in user list", () => {
 test("에러 발생?", () => {
   expect(() => testFunction.throwError()).toThrow("ERROR");
 });
+
+// 비동기 통신은 done 키워드를 활용하여 실행이 끝나는 기점에 done 키워드를 작성해야 한다.
+test("3초 후에 받아온 이름은 Mike", (done) => {
+  function callback(name) {
+    try {
+      expect(name).toBe("Mike");
+      done();
+    } catch (error) {
+      done();
+    }
+  }
+  testFunction.getName(callback);
+});
+
+test("3초 후 나이는 26", async () => {
+  const age = await testFunction.getAge();
+  expect(age).toBe(26);
+});
